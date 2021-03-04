@@ -97,11 +97,11 @@ Result nearestPoints_DC(std::vector<Point> &vp, int l, int r){
     int m = (l+r)/2;
     Result left = nearestPoints_DC(vp,l,m), right = nearestPoints_DC(vp,m,r);
     Result d = left.dmin < right.dmin ? left : right;
-    auto leftIt = lower_bound(vp.begin() + l,vp.begin()+r,Point(vp[m].x-d.dmin,-MAX_DOUBLE),[](Point a, Point b){
+    auto leftIt = lower_bound(vp.begin() + l,vp.begin() + r + 1,Point(vp[m].x-d.dmin,-MAX_DOUBLE),[](Point a, Point b){
         if(a.x == b.x) return a.y < b.y;
         return a.x < b.x;
     });
-    auto rightIt = lower_bound(vp.begin() + l,vp.begin() + r,Point(vp[m].x+d.dmin,MAX_DOUBLE),[](Point a, Point b){
+    auto rightIt = lower_bound(vp.begin() + l,vp.begin() + r + 1,Point(vp[m].x+d.dmin,MAX_DOUBLE),[](Point a, Point b){
         if(a.x == b.x) return a.y < b.y;
         return a.x < b.x;
     });
@@ -137,11 +137,11 @@ Result nearestPoints_DC_MT(std::vector<Point> &vp, int l, int r, int threads){
         left = nearestPoints_DC_MT(vp, l, m,threads), right = nearestPoints_DC_MT(vp, m, r,threads);
     }
     Result d = left.dmin < right.dmin ? left : right;
-    auto leftIt = lower_bound(vp.begin() + l,vp.begin()+r,Point(vp[m].x-d.dmin,-MAX_DOUBLE),[](Point a, Point b){
+    auto leftIt = lower_bound(vp.begin() + l,vp.begin() + r + 1,Point(vp[m].x-d.dmin,-MAX_DOUBLE),[](Point a, Point b){
         if(a.x == b.x) return a.y < b.y;
         return a.x < b.x;
     });
-    auto rightIt = lower_bound(vp.begin() + l,vp.begin() + r,Point(vp[m].x+d.dmin,MAX_DOUBLE),[](Point a, Point b){
+    auto rightIt = lower_bound(vp.begin() + l,vp.begin() + r + 1,Point(vp[m].x+d.dmin,MAX_DOUBLE),[](Point a, Point b){
         if(a.x == b.x) return a.y < b.y;
         return a.x < b.x;
     });
