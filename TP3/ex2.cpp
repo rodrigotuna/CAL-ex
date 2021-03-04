@@ -21,27 +21,27 @@ int maxSubsequenceDC(int A[], unsigned int n, int &i, int &j, int l, int r) {
         j = rj;
     }
 
-    int mmax= 0, mi, mj = m;
-    int lm, best = -INT_MAX, tot = 0;
+    int mmax= 0, mi, mj;
+    int best = -INT_MAX, tot = 0;
     for(int ii = m; ii >= l; ii--){
         tot += A[ii];
         if(tot > best){
             best = tot;
-            lm = ii;
+            mi = ii;
         }
     }
     mmax += best;
-    mi = lm;
-    best = -INT_MAX, tot = 0;
+
+    best = -INT_MAX, tot = 0; //Reset values
     for(int ii = m+1; ii <= r; ii++){
         tot += A[ii];
         if(tot > best){
             best = tot;
-            lm = ii;
+            mj = ii;
         }
     }
     mmax += best;
-    mj = lm;
+
     if(mmax > dmax){
         dmax = mmax;
         i = mi;
