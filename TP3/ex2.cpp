@@ -8,7 +8,7 @@ int maxSubsequenceDC(int A[], unsigned int n, int &i, int &j, int l, int r) {
     int li,lj,ri,rj;
     int m = (l+r)/2;
     int lmax = maxSubsequenceDC(A,n,li,lj,l,m);
-    int rmax = maxSubsequenceDC(A,n,ri,rj,m,r);
+    int rmax = maxSubsequenceDC(A,n,ri,rj,m+1,r);
     int dmax;
 
     if(lmax > rmax){
@@ -21,37 +21,33 @@ int maxSubsequenceDC(int A[], unsigned int n, int &i, int &j, int l, int r) {
         j = rj;
     }
 
-    int mmax= A[m], mi = m, mj = m;
+    int mmax= 0, mi, mj = m;
     int lm, best = -INT_MAX, tot = 0;
-    for(int ii = m - 1; ii >= l; ii--){
+    for(int ii = m; ii >= l; ii--){
         tot += A[ii];
         if(tot > best){
             best = tot;
             lm = ii;
         }
     }
-    if(best > 0) {
-        mmax += best;
-        mi = lm;
-    }
+    mmax += best;
+    mi = lm;
     best = -INT_MAX, tot = 0;
-    for(int ii = m+1; i <= r; i--){
+    for(int ii = m+1; ii <= r; ii++){
         tot += A[ii];
         if(tot > best){
             best = tot;
             lm = ii;
         }
     }
-    if(best > 0) {
-        mmax += best;
-        mj = lm;
-    }
+    mmax += best;
+    mj = lm;
     if(mmax > dmax){
         dmax = mmax;
         i = mi;
         j = mj;
     }
-    return 0;
+    return dmax;
 }
 
 int maxSubsequenceDC(int A[], unsigned int n, int &i, int &j) {
