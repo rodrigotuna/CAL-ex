@@ -4,7 +4,6 @@
 #include <thread>
 #include <algorithm>
 #include <cmath>
-#include <algorithm>
 #include <iostream>
 
 const double MAX_DOUBLE = std::numeric_limits<double>::max();
