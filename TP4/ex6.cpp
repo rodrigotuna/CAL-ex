@@ -1,14 +1,46 @@
 #include "exercises.h"
 
 int maxSubsequenceDP(int A[], unsigned int n, unsigned int &i, unsigned int &j) {
-    // TODO
-    return 0;
+    int bestSum = A[0];
+    int bestLocalSum = A[0];
+    unsigned locali = 0, localj = 0;
+    i = 0; j= 0;
+    for(unsigned w = 1; w < n; w++){
+        if(bestLocalSum + A[w] < A[w]){
+            locali = w;
+            localj = w;
+            bestLocalSum = A[w];
+        } else {
+            localj = w;
+            bestLocalSum += A[w];
+        }
+
+        if(bestLocalSum > bestSum){
+            i = locali;
+            j = localj;
+            bestSum = bestLocalSum;
+        }
+    }
+    return bestSum;
 }
 
 int maxSubsequenceBF(int A[], unsigned int n, unsigned int &i, unsigned int &j) {
-    // TODO
-	// Copy-paste your solution for ex2 of TP1 HERE
-	return 0;
+    int maxSum = A[0];
+    i = 0; j = 0;
+
+    for(int u = 0; u < n; u++){
+        int localSum = 0;
+        for(int v = u; v < n; v ++){
+            localSum += A[v];
+            if(localSum > maxSum){
+                maxSum = localSum;
+                i = u;
+                j = v;
+            }
+        }
+    }
+
+    return maxSum;
 }
 
 int maxSubsequenceDC(int A[], unsigned int n, unsigned int &i, unsigned int &j) {
