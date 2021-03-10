@@ -1,8 +1,36 @@
 #include "exercises.h"
 
+#include <vector>
+
 bool changeMakingUnlimitedDP(unsigned int C[], unsigned int n, unsigned int T, unsigned int usedCoins[]) {
-    // TODO
-	return false;
+    std::vector<unsigned> minCoins(T+1,1000);
+    std::vector<int> lastCoin(T+1,-1);
+
+    for(unsigned i = 0; i < n; i++) usedCoins[i] = 0;
+
+    minCoins[0] = 0;
+    bool correct = true;
+
+    for(unsigned i = 0; i < n; i++){
+        for(unsigned j = 1; j <= T; j++){
+            if(C[i] > j) continue;
+            if (minCoins[j] > minCoins[j - C[i]] + 1){
+                minCoins[j] = minCoins[j - C[i]] + 1;
+                lastCoin[j] = i;
+            }
+        }
+    }
+
+    while(T > 0){
+        if(lastCoin[T] == -1){
+            correct = false;
+            break;
+        }
+        usedCoins[lastCoin[T]]++;
+        T -= C[lastCoin[T]];
+    }
+
+    return correct;
 }
 
 
