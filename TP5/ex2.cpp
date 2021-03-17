@@ -40,10 +40,8 @@ TEST(TP5_Ex2a, test_removeVertex_Again) {
     std::vector<Person> v1=net1.dfs();
     std::string names[] = {"Ana", "Filipe", "Rui", "Vasco", "Ines", "Maria"};
     EXPECT_EQ(v1.size(), 6);
-    for (unsigned i = 0; i < v1.size(); i++) {
-        std::cout << v1[i].getName() << " ";
+    for (unsigned i = 0; i < v1.size(); i++)
         EXPECT_EQ(names[i], v1[i].getName());
-    }
 }
 
 TEST(TP5_Ex2b, test_bfs) {
